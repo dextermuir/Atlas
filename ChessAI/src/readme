@@ -1,0 +1,27 @@
+Functionality:
+The goal is that it will be able to identify the best moves to play from the initial position to get the best outcome
+for each colour
+
+TODO:
+- save selected indexes to memory
+- move three-peat repetition to game class
+
+Problems (and solutions):
+- Having to make two separate networks for white and black ->
+by flipping the board longways and swapping the colours the same network can play moves for white and black with no
+difference in how it should play them.
+- The win draw problem ->
+When a move wins expected cost of the output will be pushed to 1 while all others are pushed to 0. Draws will be ignored
+by the network creating the desired hierarchy of priority of win > draw > loss.
+- Speed of calculation ->
+Implement use of a GPU. Avoid reading and writing to the txt files as this takes a long time, which can be done by
+calling play multiple consecutive times from one execution of the program. Then it only has to read when the program
+terminates, and read when it wants to play another round of games
+- How to initialise the network ->
+initialise weights randomly using an inverse sigmoid and biases to 0
+- Finding the appropriate number and size of hidden layers and rate constant ->
+2 hidden layers, at least 50 neurons per layer (same in both to keep it simple) and larger rate constant at the start
+that increases every time the cost reduces & decreases every time the cost increases
+- playing a variety of moves ->
+Choosing the index of the output array randomly using the outputs as probability weights. This means moves that lose
+more are less likely to be played but can still be played in case they are actually winning.
